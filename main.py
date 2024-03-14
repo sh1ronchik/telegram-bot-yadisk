@@ -21,7 +21,12 @@ def send_welcome(message):
 @bot.message_handler(func=lambda message: True)
 def handle_choice(message):
     try:
-        if message.text in ['Git', 'Алгоритмы и структуры данных', 'Ассемблер']:
+        if message.text == 'Git':
+            keyboard = types.InlineKeyboardMarkup()
+            url_button = types.InlineKeyboardButton(text="Перейти", url="https://disk.yandex.ru/d/FQF3XaoDUh_jbg/git")
+            keyboard.add(url_button)
+            bot.send_message(message.chat.id, "Материал по дисциплине 'Git':", reply_markup=keyboard)
+        elif message.text in ['Алгоритмы и структуры данных', 'Ассемблер']:
             bot.send_message(message.chat.id, f"Материал по дисциплине '{message.text}':")
         else:
             bot.send_message(message.chat.id, "Неизвестный выбор. Пожалуйста, выберите одну из предложенных дисциплин.")
