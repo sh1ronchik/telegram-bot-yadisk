@@ -6,18 +6,29 @@ bot = telebot.TeleBot('7184614153:AAEFENuyy2d5K9sS7Cwi-jAC7LndzlvKn70')
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
 
-    keyboard = types.InlineKeyboardMarkup()
+    keyboard_main = types.ReplyKeyboardMarkup(resize_keyboard=True)
 
-    button_os = types.InlineKeyboardButton('Git', callback_data='os')
-    button_alg = types.InlineKeyboardButton('Алгоритмы и структуры данных', callback_data='alg')
-    button_ass = types.InlineKeyboardButton('Ассемблер', callback_data='ass')
-
-
-    keyboard.add(button_os)
-    keyboard.add(button_alg)
-    keyboard.add(button_ass)
-
-    bot.reply_to(message, "Привет, какая дисциплина тебя интересует?", reply_markup=keyboard)
+    button_git = types.KeyboardButton('Git')
+    button_alg = types.KeyboardButton('Алгоритмы и структуры данных')
+    button_ass = types.KeyboardButton('Ассемблер')
 
 
-bot.infinity_polling()
+    keyboard_main.add(button_git, button_alg, button_ass)
+
+    bot.send_message(message.chat.id, "Привет, выбери интересующую тебя дисциплину:", reply_markup=keyboard_main)
+
+@bot.message_handler(func=lambda message: message.text == "Git")
+def choice_button_git(message):
+    bot.send_message(message.chat.id, "Материал по Git:")
+
+@bot.message_handler(func=lambda message: message.text == "Алгоритмы и структуры данных")
+def button1(message):
+    bot.send_message(message.chat.id, "Материал по алгоритмам и структурам данных:")
+
+@bot.message_handler(func=lambda message: message.text == "Ассемблер")
+def button1(message):
+    bot.send_message(message.chat.id, "Материал по ассемблеру:")
+
+
+if __name__ == '__main__':
+    bot.infinity_polling()
