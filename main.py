@@ -1,7 +1,7 @@
 import telebot
 from telebot import types
 
-bot = telebot.TeleBot('7184614153:AAEFENuyy2d5K9sS7Cwi-jAC7LndzlvKn70')
+bot = telebot.TeleBot('Your token')
 
 def create_main_keyboard():
     keyboard_main = types.ReplyKeyboardMarkup(resize_keyboard=True)
